@@ -2,33 +2,9 @@ import { Link } from "react-router-dom";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import Category from "./Category";
+import { getProductsByCategory } from "../data/mockProducts";
 
-const products = [
-    {
-        id: 1,
-        name: "Boy's Sweatshirt - Blue Atoll",
-        price: "AED355.00",
-        image: "/images/boys-sweatshirt-blue.jpg"
-    },
-    {
-        id: 2,
-        name: "Girl's Hoodie - Pink Lemonade",
-        price: "AED380.00",
-        image: "/images/girls-hoodie-pink.jpg"
-    },
-    {
-        id: 3,
-        name: "Kid's Joggers - Green",
-        price: "AED320.00",
-        image: "/images/kids-joggers-green.jpg"
-    },
-    {
-        id: 4,
-        name: "Kid's T-Shirt - Yellow",
-        price: "AED250.00",
-        image: "/images/kids-tshirt-yellow.jpg"
-    }
-];
+const products = getProductsByCategory('kids');
 
 export function KidsPage({ onMenuClick }) {
     return (
@@ -77,8 +53,9 @@ export function KidsPage({ onMenuClick }) {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {products.map((product) => (
-                            <div
+                            <Link
                                 key={product.id}
+                                to={`/product/${product.id}`}
                                 className="group cursor-pointer"
                             >
                                 <div className="flex flex-col gap-3">
@@ -86,7 +63,7 @@ export function KidsPage({ onMenuClick }) {
                                         <img
                                             alt={product.name}
                                             className="absolute w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                            src={product.image}
+                                            src={product.images[0]}
                                             onError={(e) => {
                                                 e.target.src = 'https://via.placeholder.com/300x400/FEC163/DE4313?text=Product+Image';
                                             }}
@@ -94,10 +71,10 @@ export function KidsPage({ onMenuClick }) {
                                     </div>
                                     <div className="text-center">
                                         <p className="leading-[29px] text-[18px] md:text-[21px] mb-1">{product.name}</p>
-                                        <p className="leading-[22px] text-[18px] md:text-[21px]">{product.price}</p>
+                                        <p className="leading-[22px] text-[18px] md:text-[21px]">{product.currency} {product.price.toFixed(2)}</p>
                                     </div>
                                 </div>
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 </section>

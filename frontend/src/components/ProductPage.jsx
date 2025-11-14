@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
+import { getProductById } from "../data/mockProducts";
 import {
     Add,
     Remove,
@@ -10,96 +11,12 @@ import {
     Close
 } from "@mui/icons-material";
 
-// Mock Product Data
-const mockProducts = {
-    "1": {
-        id: "1",
-        name: "Men's Premium Cotton Hoodie",
-        description: "Experience ultimate comfort with our premium cotton hoodie. Made from 100% organic cotton with a soft brushed interior, this hoodie features a relaxed fit perfect for everyday wear. The durable fabric ensures long-lasting quality while maintaining breathability. Perfect for casual outings or lounging at home.",
-        price: 625.00,
-        currency: "AED",
-        colors: [
-            { name: "black", hex: "#000000" },
-            { name: "white", hex: "#FFFFFF" },
-            { name: "navy", hex: "#1E3A8A" },
-            { name: "gray", hex: "#6B7280" }
-        ],
-        sizes: ["XS", "S", "M", "L", "XL", "XXL"],
-        images: [
-            "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&h=1000&fit=crop",
-            "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=800&h=1000&fit=crop",
-            "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=800&h=1000&fit=crop",
-            "https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?w=800&h=1000&fit=crop"
-        ]
-    },
-    "2": {
-        id: "2",
-        name: "Women's Luxury Sweatshirt",
-        description: "Indulge in luxury with our premium sweatshirt crafted from the finest materials. Featuring a contemporary design with exceptional attention to detail, this piece combines style and comfort effortlessly. The soft fabric drapes beautifully while providing warmth and comfort.",
-        price: 550.00,
-        currency: "AED",
-        colors: [
-            { name: "rose", hex: "#FFB6C1" },
-            { name: "lavender", hex: "#E6E6FA" },
-            { name: "cream", hex: "#FFFDD0" },
-            { name: "sage", hex: "#9DC183" }
-        ],
-        sizes: ["XS", "S", "M", "L", "XL"],
-        images: [
-            "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&h=1000&fit=crop",
-            "https://images.unsplash.com/photo-1614251055880-b5e3e6eb3fb3?w=800&h=1000&fit=crop",
-            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&h=1000&fit=crop",
-            "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=1000&fit=crop"
-        ]
-    },
-    "3": {
-        id: "3",
-        name: "Kids' Adventure Joggers",
-        description: "Let your little ones explore in comfort with our durable adventure joggers. Made with active kids in mind, these joggers feature reinforced knees, adjustable waistband, and plenty of stretch for all-day play. The moisture-wicking fabric keeps them dry during activities.",
-        price: 355.00,
-        currency: "AED",
-        colors: [
-            { name: "blue", hex: "#4A90E2" },
-            { name: "green", hex: "#7ED321" },
-            { name: "orange", hex: "#F5A623" },
-            { name: "purple", hex: "#9013FE" }
-        ],
-        sizes: ["2-3Y", "4-5Y", "6-7Y", "8-9Y", "10-11Y", "12-13Y"],
-        images: [
-            "https://images.unsplash.com/photo-1519457431-44ccd64a579b?w=800&h=1000&fit=crop",
-            "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800&h=1000&fit=crop",
-            "https://images.unsplash.com/photo-1519278409-aa1e39022b2a?w=800&h=1000&fit=crop",
-            "https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?w=800&h=1000&fit=crop"
-        ]
-    },
-    "4": {
-        id: "4",
-        name: "Classic Denim Jacket",
-        description: "A timeless wardrobe essential, our classic denim jacket never goes out of style. Featuring authentic details, quality construction, and a perfect wash, this jacket gets better with age. Pair it with anything from casual jeans to dresses for versatile styling options.",
-        price: 780.00,
-        currency: "AED",
-        colors: [
-            { name: "light-wash", hex: "#A4C8E1" },
-            { name: "medium-wash", hex: "#4682B4" },
-            { name: "dark-wash", hex: "#1C3A5C" },
-            { name: "black", hex: "#000000" }
-        ],
-        sizes: ["XS", "S", "M", "L", "XL", "XXL"],
-        images: [
-            "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=800&h=1000&fit=crop",
-            "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800&h=1000&fit=crop",
-            "https://images.unsplash.com/photo-1543076499-a7e3f4c95cdb?w=800&h=1000&fit=crop",
-            "https://images.unsplash.com/photo-1544923408-75c5cef46f14?w=800&h=1000&fit=crop"
-        ]
-    }
-};
-
 export function ProductPage({ onMenuClick }) {
     const navigate = useNavigate();
     const { id } = useParams();
 
     // Get product from mock data or use default
-    const product = mockProducts[id] || mockProducts["1"];
+    const product = getProductById(id) || getProductById("men-1");
 
     const [selectedColor, setSelectedColor] = useState(product.colors[0].name);
     const [selectedSize, setSelectedSize] = useState(product.sizes[2] || product.sizes[0]);

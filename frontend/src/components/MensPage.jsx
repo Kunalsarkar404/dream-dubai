@@ -2,40 +2,9 @@ import { Link } from "react-router-dom";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import Category from "./Category";
+import { getProductsByCategory } from "../data/mockProducts";
 
-const categories = [
-    { name: "Women", image: "/images/women.jpg" },
-    { name: "Men", image: "/images/men.jpg", active: true },
-    { name: "Kids", image: "/images/kids.jpg" },
-    { name: "Stationery", image: "/images/stationery.jpg" }
-];
-
-const products = [
-    {
-        id: 1,
-        name: "Men's Sweatshirt - Green Ash",
-        price: "AED410.00",
-        image: "/images/mens-sweatshirt-green.jpg"
-    },
-    {
-        id: 2,
-        name: "Men's Dip-Dye Hoodie - Tender Yellow/Green Ash",
-        price: "AED700.00",
-        image: "/images/mens-hoodie-dip-dye.jpg"
-    },
-    {
-        id: 3,
-        name: "Men's Dip-Dye Hoodie - Short Bread/Papaya Punch",
-        price: "AED700.00",
-        image: "/images/mens-hoodie-papaya.jpg"
-    },
-    {
-        id: 4,
-        name: "Men's Hoodie - Short Bread",
-        price: "AED625.00",
-        image: "/images/mens-hoodie-shortbread.jpg"
-    }
-];
+const products = getProductsByCategory('men');
 
 export function MensPage({ onMenuClick }) {
     return (
@@ -72,8 +41,9 @@ export function MensPage({ onMenuClick }) {
                 <section className="mb-12">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {products.map((product) => (
-                            <div
+                            <Link
                                 key={product.id}
+                                to={`/product/${product.id}`}
                                 className="group cursor-pointer"
                             >
                                 <div className="flex flex-col gap-3">
@@ -81,7 +51,7 @@ export function MensPage({ onMenuClick }) {
                                         <img
                                             alt={product.name}
                                             className="absolute w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                            src={product.image}
+                                            src={product.images[0]}
                                             onError={(e) => {
                                                 e.target.src = 'https://via.placeholder.com/300x400/e5e7eb/9ca3af?text=Product+Image';
                                             }}
@@ -89,10 +59,10 @@ export function MensPage({ onMenuClick }) {
                                     </div>
                                     <div className="text-center">
                                         <p className="leading-[29px] text-[18px] md:text-[21px] mb-1">{product.name}</p>
-                                        <p className="leading-[22px] text-[18px] md:text-[21px]">{product.price}</p>
+                                        <p className="leading-[22px] text-[18px] md:text-[21px]">{product.currency} {product.price.toFixed(2)}</p>
                                     </div>
                                 </div>
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 </section>

@@ -2,33 +2,9 @@ import { Link } from "react-router-dom";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import Category from "./Category";
+import { getProductsByCategory } from "../data/mockProducts";
 
-const products = [
-    {
-        id: 1,
-        name: "Premium Notebook Set",
-        price: "AED125.00",
-        image: "/images/notebook-set.jpg"
-    },
-    {
-        id: 2,
-        name: "Luxury Pen Collection",
-        price: "AED180.00",
-        image: "/images/pen-collection.jpg"
-    },
-    {
-        id: 3,
-        name: "Designer Planner",
-        price: "AED220.00",
-        image: "/images/designer-planner.jpg"
-    },
-    {
-        id: 4,
-        name: "Art Supplies Bundle",
-        price: "AED350.00",
-        image: "/images/art-supplies.jpg"
-    }
-];
+const products = getProductsByCategory('stationery');
 
 export function StationeryPage({ onMenuClick }) {
     return (
@@ -75,8 +51,9 @@ export function StationeryPage({ onMenuClick }) {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {products.map((product) => (
-                            <div
+                            <Link
                                 key={product.id}
+                                to={`/product/${product.id}`}
                                 className="group cursor-pointer"
                             >
                                 <div className="flex flex-col gap-3">
@@ -84,7 +61,7 @@ export function StationeryPage({ onMenuClick }) {
                                         <img
                                             alt={product.name}
                                             className="absolute w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                            src={product.image}
+                                            src={product.images[0]}
                                             onError={(e) => {
                                                 e.target.src = 'https://via.placeholder.com/300x400/667EEA/764BA2?text=Product+Image';
                                             }}
@@ -92,10 +69,10 @@ export function StationeryPage({ onMenuClick }) {
                                     </div>
                                     <div className="text-center">
                                         <p className="leading-[29px] text-[18px] md:text-[21px] mb-1">{product.name}</p>
-                                        <p className="leading-[22px] text-[18px] md:text-[21px]">{product.price}</p>
+                                        <p className="leading-[22px] text-[18px] md:text-[21px]">{product.currency} {product.price.toFixed(2)}</p>
                                     </div>
                                 </div>
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 </section>

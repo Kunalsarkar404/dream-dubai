@@ -2,33 +2,9 @@ import { Link } from "react-router-dom";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import Category from "./Category";
+import { getProductsByCategory } from "../data/mockProducts";
 
-const products = [
-    {
-        id: 1,
-        name: "Women's Hoodie - Pale Banana",
-        price: "AED625.00",
-        image: "/images/womens-hoodie-banana.jpg"
-    },
-    {
-        id: 2,
-        name: "Women's Sweatshirt - Rose Pink",
-        price: "AED550.00",
-        image: "/images/womens-sweatshirt-pink.jpg"
-    },
-    {
-        id: 3,
-        name: "Women's Hoodie - Lavender",
-        price: "AED625.00",
-        image: "/images/womens-hoodie-lavender.jpg"
-    },
-    {
-        id: 4,
-        name: "Women's Joggers - Coral",
-        price: "AED480.00",
-        image: "/images/womens-joggers-coral.jpg"
-    }
-];
+const products = getProductsByCategory('women');
 
 export function WomenPage({ onMenuClick }) {
     return (
@@ -77,8 +53,9 @@ export function WomenPage({ onMenuClick }) {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {products.map((product) => (
-                            <div
+                            <Link
                                 key={product.id}
+                                to={`/product/${product.id}`}
                                 className="group cursor-pointer"
                             >
                                 <div className="flex flex-col gap-3">
@@ -86,7 +63,7 @@ export function WomenPage({ onMenuClick }) {
                                         <img
                                             alt={product.name}
                                             className="absolute w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                            src={product.image}
+                                            src={product.images[0]}
                                             onError={(e) => {
                                                 e.target.src = 'https://via.placeholder.com/300x400/FFB6D9/FF69B4?text=Product+Image';
                                             }}
@@ -94,10 +71,10 @@ export function WomenPage({ onMenuClick }) {
                                     </div>
                                     <div className="text-center">
                                         <p className="leading-[29px] text-[18px] md:text-[21px] mb-1">{product.name}</p>
-                                        <p className="leading-[22px] text-[18px] md:text-[21px]">{product.price}</p>
+                                        <p className="leading-[22px] text-[18px] md:text-[21px]">{product.currency} {product.price.toFixed(2)}</p>
                                     </div>
                                 </div>
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 </section>
