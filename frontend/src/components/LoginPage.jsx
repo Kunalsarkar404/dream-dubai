@@ -29,7 +29,7 @@ export function LoginPage() {
             {/* Top Navbar */}
             <header className="flex items-center justify-between px-6 lg:px-16 py-4 bg-white shadow-sm">
                 <Link to="/" className="flex items-center">
-                    <img src="/logo.webp" alt="Dream Dubai" className="h-8" />
+                    <img src="/logo.webp" alt="Dealz7" className="h-8" />
                 </Link>
 
                 <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
@@ -52,7 +52,7 @@ export function LoginPage() {
 
             {/* Download Banner */}
             <div className="bg-[#4200ff] text-white text-center py-3 px-4 text-sm">
-                Download the Dream Dubai app for the best winning experience&nbsp;
+                Download the Dealz7 app for the best winning experience&nbsp;
                 <button className="bg-white text-[#4200ff] font-semibold rounded-full px-4 py-1 ml-1 text-xs hover:bg-opacity-90">
                     DOWNLOAD
                 </button>
@@ -154,7 +154,7 @@ export function LoginPage() {
             <footer className="bg-white border-t border-[#eee] py-10 px-6 lg:px-16">
                 <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-x-10 gap-y-6 text-sm">
 
-                    <img src="/logo.webp" alt="Dream Dubai" className="h-10 mb-4" />
+                    <img src="/logo.webp" alt="Dealz7" className="h-10 mb-4" />
                     {/* Logo + Menu */}
                     <div>
                         <ul className="space-y-1">
@@ -196,7 +196,7 @@ export function LoginPage() {
                         {/* Email */}
                         <div className="w-full flex justify-between items-start bg-gray-100 text-black px-4 py-2 gap-x-7 rounded-lg mb-3">
                             <span className="text-left leading-tight">
-                                Email: support@dreamdubai.com
+                                Email: support@dealz7.com
                             </span>
                             <div className="w-5 h-5" /> {/* Invisible spacer */}
                         </div>
@@ -245,7 +245,7 @@ export function LoginPage() {
                 </div>
 
                 <p className="text-center text-xs text-[#666] mt-10">
-                    Dream Dubai © 2025 – All Rights Reserved
+                    Dealz7 © 2025 – All Rights Reserved
                 </p>
             </footer>
         </div>

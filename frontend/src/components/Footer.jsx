@@ -9,8 +9,8 @@ export function Footer() {
                 <Link to="/" className="flex-shrink-0">
                     <img
                         src="./logo.webp"
-                        alt="Dream Dubai"
-                        className="h-10 w-auto"
+                        alt="Dealz7"
+                        className="h-16 w-auto"
                     />
                 </Link>
 

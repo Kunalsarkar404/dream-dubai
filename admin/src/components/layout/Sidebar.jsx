@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
-import { 
-  FiHome, 
-  FiPackage, 
-  FiShoppingCart, 
+import {
+  FiHome,
+  FiPackage,
+  FiShoppingCart,
   FiUsers,
   FiX
 } from 'react-icons/fi';
@@ -21,8 +21,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
           <div className="sidebar-logo">
-            <div className="logo-icon">DD</div>
-            <span className="logo-text">Dream Dubai</span>
+            <img src="/logo.webp" alt="Dealz7" className="logo-image" />
           </div>
           <button className="sidebar-close-btn" onClick={toggleSidebar}>
             <FiX size={24} />
@@ -34,7 +33,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <NavLink
               key={item.path}
               to={item.path}
-              className={({ isActive }) => 
+              className={({ isActive }) =>
                 `sidebar-link ${isActive ? 'active' : ''}`
               }
               onClick={() => window.innerWidth <= 768 && toggleSidebar()}
@@ -52,7 +51,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           </div>
         </div>
       </aside>
-      
+
       {isOpen && <div className="sidebar-overlay" onClick={toggleSidebar}></div>}
     </>
   );

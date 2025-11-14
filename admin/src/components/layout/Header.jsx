@@ -54,7 +54,7 @@ const Header = ({ toggleSidebar }) => {
             <span></span>
             <span></span>
           </button>
-          <h1 className="header-brand">Dream Dubai Admin</h1>
+          <h1 className="header-brand">Dealz7 Admin</h1>
         </div>
 
         <div className="header-right">

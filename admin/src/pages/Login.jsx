@@ -70,8 +70,8 @@ const Login = () => {
       <div className="login-container">
         <div className="login-card">
           <div className="login-header">
-            <div className="login-logo">DD</div>
-            <h1>Dream Dubai</h1>
+            <img src="/logo.webp" alt="Dealz7" className="login-logo" />
+            <h1>Dealz7</h1>
             <p>Admin Panel</p>
           </div>
 
@@ -84,7 +84,7 @@ const Login = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="admin@dreamdubai.com"
+                placeholder="admin@dealz7.com"
                 className={errors.email ? 'input-error' : ''}
               />
               {errors.email && <span className="error-text">{errors.email}</span>}
@@ -120,7 +120,7 @@ const Login = () => {
           </form>
 
           <div className="login-footer">
-            <p>© 2025 Dream Dubai. All rights reserved.</p>
+            <p>© 2025 Dealz7. All rights reserved.</p>
           </div>
         </div>
       </div>

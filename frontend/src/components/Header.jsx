@@ -14,8 +14,8 @@ export function Header({ onMenuClick }) {
                 <Link to="/" className="flex items-center hover:opacity-80">
                     <img
                         src="/logo.webp"
-                        alt="Modeshworld"
-                        className="h-8 object-contain"
+                        alt="Dealz7"
+                        className="h-14 object-contain"
                     />
                 </Link>
 
