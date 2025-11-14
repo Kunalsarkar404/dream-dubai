@@ -35,9 +35,25 @@ const app = express();
 connectDB();
 
 // CORS configuration - Apply FIRST before helmet
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'https://dream-dubai-xiv8.vercel.app',
+  'https://dream-dubai-mw9j.vercel.app',
+];
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or curl)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
@@ -74,7 +90,7 @@ app.use(compression());
 // Serve static files from uploads directory with CORS headers
 app.use('/uploads', (req, res, next) => {
   res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
-  res.setHeader('Access-Control-Allow-Origin', process.env.CLIENT_URL || 'http://localhost:5173');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   next();
 }, express.static(path.join(__dirname, 'uploads')));
 
