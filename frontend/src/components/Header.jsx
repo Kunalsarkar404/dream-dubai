@@ -1,8 +1,12 @@
 import { Menu } from "lucide-react";
 import { ShoppingBag } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 export function Header({ onMenuClick }) {
+    const { getCartCount } = useCart();
+    const cartCount = getCartCount();
+
     return (
         <header className="bg-white sticky top-0 z-50">
             <div className="max-w-[1400px] mx-auto px-4 flex items-center justify-between">
@@ -29,10 +33,15 @@ export function Header({ onMenuClick }) {
                     {/* My Cart */}
                     <Link
                         to="/cart"
-                        className="bg-[#e5f6fc] text-[#2c52a4] px-6 py-2 rounded-[24px] hover:bg-[#d0edf8] transition-colors flex items-center gap-2"
+                        className="bg-[#e5f6fc] text-[#2c52a4] px-6 py-2 rounded-[24px] hover:bg-[#d0edf8] transition-colors flex items-center gap-2 relative"
                     >
                         <ShoppingBag className="w-5 h-5 text-[#2c52a4]" />
                         <span className="hidden md:inline font-bold">My Cart</span>
+                        {cartCount > 0 && (
+                            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                                {cartCount}
+                            </span>
+                        )}
                     </Link>
 
                     {/* Login/Register Button with Image */}

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { getProductById } from "../data/mockProducts";
+import { useCart } from "../context/CartContext";
 import {
     Add,
     Remove,
@@ -14,12 +15,14 @@ import {
 export function ProductPage({ onMenuClick }) {
     const navigate = useNavigate();
     const { id } = useParams();
+    const { addToCart } = useCart();
 
     // Get product from mock data or use default
     const product = getProductById(id) || getProductById("men-1");
 
-    const [selectedColor, setSelectedColor] = useState(product.colors[0].name);
-    const [selectedSize, setSelectedSize] = useState(product.sizes[2] || product.sizes[0]);
+    const [selectedColor, setSelectedColor] = useState(null);
+    const [selectedColorHex, setSelectedColorHex] = useState(null);
+    const [selectedSize, setSelectedSize] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [primaryImage, setPrimaryImage] = useState(product.images[0]);
     const [showSizeChart, setShowSizeChart] = useState(false);
@@ -42,8 +45,13 @@ export function ProductPage({ onMenuClick }) {
     };
 
     const handleAddToBag = () => {
-        // Add to bag logic
-        navigate("/cart");
+        if (!selectedColor || !selectedSize) return;
+        addToCart(product, selectedColor, selectedColorHex, selectedSize, quantity);
+    };
+
+    const handleColorSelect = (color) => {
+        setSelectedColor(color.name);
+        setSelectedColorHex(color.hex);
     };
 
     return (
@@ -112,13 +120,14 @@ export function ProductPage({ onMenuClick }) {
                         {/* Select Colour */}
                         <div className="mb-6">
                             <label className="block text-sm font-semibold mb-3">
-                                Select Colour: <span className="font-normal capitalize">{selectedColor}</span>
+                                Select Colour{selectedColor && `: `}
+                                {selectedColor && <span className="font-normal capitalize">{selectedColor}</span>}
                             </label>
                             <div className="flex gap-3">
                                 {product.colors.map((color) => (
                                     <button
                                         key={color.name}
-                                        onClick={() => setSelectedColor(color.name)}
+                                        onClick={() => handleColorSelect(color)}
                                         className={`w-10 h-10 rounded-full border-2 transition-all ${selectedColor === color.name
                                             ? "border-black scale-110"
                                             : "border-gray-300 hover:border-gray-500"
@@ -151,7 +160,7 @@ export function ProductPage({ onMenuClick }) {
                                         key={size}
                                         onClick={() => setSelectedSize(size)}
                                         className={`min-w-[3.5rem] h-14 px-3 rounded-full border-2 font-semibold transition-all ${selectedSize === size
-                                            ? "bg-[#00a8e3] text-white"
+                                            ? "bg-[#00a8e3] text-white border-[#00a8e3]"
                                             : "border-gray-300 hover:border-[#00a8e3]"
                                             }`}
                                     >
@@ -185,7 +194,8 @@ export function ProductPage({ onMenuClick }) {
                         {/* Add to Bag Button */}
                         <button
                             onClick={handleAddToBag}
-                            className="w-3/12 bg-gradient-to-tr from-[#018ff4] to-[#4ecffe] text-white py-4 rounded-full font-semibold hover:bg-gray-800 transition mb-8"
+                            disabled={!selectedColor || !selectedSize}
+                            className="w-3/12 bg-gradient-to-tr from-[#018ff4] to-[#4ecffe] text-white py-4 rounded-full font-semibold hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed mb-8"
                         >
                             Add to Bag
                         </button>
